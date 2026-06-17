@@ -2,6 +2,10 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return render_template("tv1.html")
+
 @app.route("/tv1")
 def tv1():
     return render_template("tv1.html")
