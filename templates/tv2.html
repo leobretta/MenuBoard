@@ -2,48 +2,40 @@
 <html>
 <head>
     <title>Dad's Subs - Sides & Drinks</title>
-    <style>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </style>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        // Auto-refresh the page every 30 seconds to pick up menu changes
+        setTimeout(function() {
+            window.location.reload();
+        }, 10000);
+    </script>
+
 </head>
 
 <body>
 
-<h1>Sides & Drinks</h1>
+<img class="logo" src="{{ url_for('static', filename='images/logo.png') }}">
 
-<h2>Sides</h2>
+<h2>{{ menu.title }}</h2>
 
-<div class="item">
-    <span>Chips</span>
-    <span class="price">$1.99</span>
-</div>
+
+{% for item in menu["items"] %}
 
 <div class="item">
-    <span>Cookie</span>
-    <span class="price">$1.49</span>
+
+    <span>
+        {{ item.name }}
+    </span>
+
+    <span class="price">
+        ${{ "%.2f"|format(item.price) }}
+    </span>
+
 </div>
 
-<div class="item">
-    <span>Brownie</span>
-    <span class="price">$2.49</span>
-</div>
-
-<h2>Drinks</h2>
-
-<div class="item">
-    <span>Fountain Drink</span>
-    <span class="price">$2.49</span>
-</div>
-
-<div class="item">
-    <span>Bottled Water</span>
-    <span class="price">$1.99</span>
-</div>
-
-<div class="combo-box">
-    <h3>Make It a Combo!</h3>
-    <p>Add Chips and a Drink for $3.50</p>
-</div>
+{% endfor %}
 
 </body>
 </html>

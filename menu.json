@@ -1,0 +1,59 @@
+{
+    "business_name": "The Yellow Submarine and Pinball Pete's",
+    "background_color": "#fbf304",
+    "tv1": {
+        "sections": [
+            {
+                "title": "Signature Subs",
+                "items": [
+                    {
+                        "name": "Turkey Club",
+                        "price": 8.99
+                    },
+                    {
+                        "name": "Italian",
+                        "price": 9.49
+                    },
+                    {
+                        "name": "Ham & Swiss",
+                        "price": 8.99
+                    },
+                    {
+                        "name": "Roast Beef",
+                        "price": 9.99
+                    }
+                ]
+            },
+            {
+                "title": "Desserts",
+                "items": [
+                    {
+                        "name": "yo",
+                        "price": 1.0
+                    }
+                ]
+            }
+        ]
+    },
+    "tv2": {
+        "sections": [
+            {
+                "title": "Sides & Drinks",
+                "items": [
+                    {
+                        "name": "Chips",
+                        "price": 1.99
+                    },
+                    {
+                        "name": "Cookie",
+                        "price": 1.49
+                    },
+                    {
+                        "name": "Fountain Drink",
+                        "price": 2.49
+                    }
+                ]
+            }
+        ]
+    }
+}

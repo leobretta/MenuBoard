@@ -3,42 +3,40 @@
 <head>
     <title>Dad's Subs - Menu</title>
 
-    <style>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </style>
     
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        // Auto-refresh the page every 30 seconds to pick up menu changes
+        setTimeout(function() {
+            window.location.reload();
+        }, 10000);
+    </script>
+
 </head>
 
 <body>
 
-<h1>Dad's Subs</h1>
+<img class="logo" src="{{ url_for('static', filename='images/logo.png') }}">
 
-<h2>Signature Subs</h2>
+<h2>{{ menu.title }}</h2>
 
-<div class="item">
-    <span>Turkey Club</span>
-    <span class="price">$8.99</span>
-</div>
+
+{% for item in menu["items"] %}
 
 <div class="item">
-    <span>Italian</span>
-    <span class="price">$9.49</span>
+
+    <span>
+        {{ item.name }}
+    </span>
+
+    <span class="price">
+        ${{ "%.2f"|format(item.price) }}
+    </span>
+
 </div>
 
-<div class="item">
-    <span>Ham & Swiss</span>
-    <span class="price">$8.99</span>
-</div>
-
-<div class="item">
-    <span>Roast Beef</span>
-    <span class="price">$9.99</span>
-</div>
-
-<div class="special">
-    <h3>Today's Special</h3>
-    <p>Any Footlong + Chips + Drink - $12.99</p>
-</div>
+{% endfor %}
 
 </body>
 </html>

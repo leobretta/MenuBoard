@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin">
+
+<div class="login-box">
+    <h1>Menu Admin</h1>
+
+    {% if error %}
+        <div class="flash error">{{ error }}</div>
+    {% endif %}
+
+    {% if not setup_needed %}
+    <form method="post" action="{{ url_for('admin_login') }}">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" autocomplete="username" autofocus required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" autocomplete="current-password" required>
+
+        <button type="submit">Log In</button>
+    </form>
+    {% endif %}
+</div>
+
+</body>
+</html>
