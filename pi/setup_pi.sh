@@ -11,14 +11,7 @@ sudo apt install -y python3-venv curl x11-xserver-utils
 
 echo "Setting up Python environment..."
 python3 -m venv "$PROJECT_DIR/venv"
-"$PROJECT_DIR/venv/bin/pip" install --quiet flask gunicorn
-
-if [ ! -f "$PROJECT_DIR/admin_config.json" ]; then
-    echo
-    echo "Let's set the username and password for the menu editor (/admin)."
-    "$PROJECT_DIR/venv/bin/python" "$PROJECT_DIR/set_password.py"
-    echo
-fi
+"$PROJECT_DIR/venv/bin/pip" install --quiet -r "$PROJECT_DIR/pi/requirements.txt"
 
 echo "Creating the menu server service..."
 sudo tee /etc/systemd/system/menu-board.service >/dev/null <<SERVICE
@@ -52,3 +45,14 @@ DESKTOP
 echo
 echo "Done. Next: make sure the Pi logs in to the desktop automatically and uses X11"
 echo "(see the notes), then reboot with:  sudo reboot"
+
+if [ ! -f "$PROJECT_DIR/admin_config.json" ]; then
+    sleep 3
+    PI_IP="$(hostname -I | awk '{print $1}')"
+    echo
+    echo "=== FIRST-TIME SETUP ==="
+    echo "After the reboot your screens will show a welcome message."
+    echo "On a phone or laptop on the same Wi-Fi, open:  http://$PI_IP:5000/setup"
+    echo "Setup code: $(cat "$PROJECT_DIR/setup_code.txt" 2>/dev/null)"
+    echo "(You'll set your store name, logo, and admin login there.)"
+fi

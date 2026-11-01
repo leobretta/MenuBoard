@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Board Setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="5">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1d2733;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .card { padding: 3vw; max-width: 94vw; }
+        h1 { font-size: 3.6vw; margin: 0 0 2vw 0; }
+        p { font-size: 2.1vw; margin: 0.8vw 0; }
+        .url { font-size: 2.8vw; font-weight: bold; color: #ffd54f; }
+        .alt { font-size: 1.7vw; color: #b0bec5; }
+        .code { font-size: 6vw; font-weight: bold; letter-spacing: 0.3em; margin: 1.5vw 0; }
+
+        .columns { display: flex; align-items: center; justify-content: center; gap: 5vw; }
+        .qr svg {
+            display: block;
+            width: 20vw;
+            height: auto;
+            background: #fff;
+            border-radius: 1vw;
+        }
+        .qr p { font-size: 1.7vw; color: #b0bec5; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Welcome! This menu board needs to be set up.</h1>
+
+    <div class="columns">
+        <div class="text">
+            {% if setup_urls %}
+                <p>On a phone or computer connected to the same Wi-Fi, open:</p>
+                {% for url in setup_urls %}
+                    <p class="url">{{ url }}</p>
+                {% endfor %}
+                <p class="alt">or try {{ name_url }}</p>
+            {% else %}
+                <p class="url">Not connected to a network yet</p>
+                <p>Plug in an Ethernet cable, or connect this device to your Wi-Fi.<br>This screen will show the setup address as soon as it's online.</p>
+                <p class="alt">If your phone or laptop is on the same network, you can also try {{ name_url }}</p>
+            {% endif %}
+
+            {% if setup_code %}
+                <p>and enter this setup code:</p>
+                <div class="code">{{ setup_code }}</div>
+            {% else %}
+                <p>The setup code is shown on the screen connected to the menu device,<br>and in the file <b>setup_code.txt</b> on that device.</p>
+            {% endif %}
+        </div>
+
+        {% if qr_svg %}
+        <div class="qr">
+            {{ qr_svg|safe }}
+            <p>Scan with your<br>phone's camera</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <p class="alt">This screen updates by itself once setup is finished.</p>
+</div>
+</body>
+</html>

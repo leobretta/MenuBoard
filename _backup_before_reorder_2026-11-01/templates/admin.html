@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin">
+
+<div class="admin-wrap">
+
+    <div class="admin-header">
+        <h1>Menu Admin</h1>
+        <form action="{{ url_for('admin_logout') }}" method="post">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+
+    <div class="tv-links">
+        View live screens:
+        {% for screen in screens %}
+            <a href="/{{ screen }}" target="_blank">{{ screen }}</a>
+        {% endfor %}
+    </div>
+
+    {% if admin_urls %}
+        <div class="tv-links">
+            Edit your menu from any device on your network:
+            {% for url in admin_urls %}<strong>{{ url }}</strong>{% if not loop.last %}, {% endif %}{% endfor %}
+            (or {{ admin_name_url }})
+        </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <div class="admin-section">
+        <h2>Business Name</h2>
+        <form class="inline-form" action="{{ url_for('admin_update_business') }}" method="post">
+            <input type="text" name="business_name" value="{{ menu.business_name }}">
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <div class="admin-section">
+        <h2>Logo</h2>
+        {% if logo %}
+            <form class="logo-size-form" action="{{ url_for('admin_update_logo_size') }}" method="post">
+                <label for="logo_size">Logo size on the TV screens:
+                    <strong><span id="logo-size-value">{{ logo_size }}</span>%</strong> of the screen's height</label>
+                <input id="logo_size" type="range" name="logo_size"
+                       min="{{ min_logo_size }}" max="{{ max_logo_size }}" step="1" value="{{ logo_size }}">
+
+                <div class="screen-preview" id="screen-preview" style="background: {{ background }};">
+                    <img id="logo-size-preview" src="{{ logo }}" alt="Current logo">
+                    <div class="fake-lines"></div>
+                </div>
+                <button type="submit">Save Size</button>
+            </form>
+            <script>
+                (function () {
+                    var slider = document.getElementById("logo_size");
+                    var label = document.getElementById("logo-size-value");
+                    var box = document.getElementById("screen-preview");
+                    var img = document.getElementById("logo-size-preview");
+
+                    function update() {
+                        label.textContent = slider.value;
+                        // The preview box is a 16:9 stand-in for the TV screen.
+                        img.style.height = (box.clientWidth * 9 / 16 * slider.value / 100) + "px";
+                    }
+                    slider.addEventListener("input", update);
+                    window.addEventListener("load", update);
+                    window.addEventListener("resize", update);
+                    update();
+                })();
+            </script>
+        {% else %}
+            <p class="color-hint">No logo yet. Your store name is shown at the top of each screen instead.</p>
+        {% endif %}
+        <form class="inline-form" action="{{ url_for('admin_update_logo') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="logo" accept="image/png,image/jpeg,image/gif,image/webp" required>
+            <button type="submit">{{ 'Replace Logo' if logo else 'Upload Logo' }}</button>
+        </form>
+        {% if logo %}
+        <form class="admin-actions" action="{{ url_for('admin_remove_logo') }}" method="post">
+            <button type="submit" class="danger">Remove Logo</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <div class="admin-section">
+        <h2>Background Color</h2>
+        <form class="inline-form" action="{{ url_for('admin_update_background') }}" method="post">
+            <input type="color" name="background_color" value="{{ background }}">
+            <span class="color-hint">Applies to every TV screen. Text switches between black and white automatically so it stays readable.</span>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    {% for screen in screens %}
+        <div class="admin-section">
+            <h2>{{ screen }}</h2>
+
+            {% set sections = menu[screen]["sections"] %}
+            {% for section in sections %}
+                {% set s = loop.index0 %}
+                <div class="menu-section">
+
+                    <form class="inline-form" action="{{ url_for('admin_update_section_title', screen=screen, section_index=s) }}" method="post">
+                        <input type="text" name="title" value="{{ section.title }}">
+                        <button type="submit">Save Title</button>
+                    </form>
+
+                    <form action="{{ url_for('admin_update_items', screen=screen, section_index=s) }}" method="post">
+                        {% for item in section["items"] %}
+                            <div class="admin-row">
+                                <input type="text" name="name_{{ loop.index0 }}" value="{{ item.name }}">
+                                <input type="number" step="0.01" min="0" name="price_{{ loop.index0 }}" value="{{ item.price }}">
+                                <label><input type="checkbox" name="delete_{{ loop.index0 }}"> Delete</label>
+                            </div>
+                        {% endfor %}
+
+                        {% if section["items"] %}
+                            <div class="admin-actions">
+                                <button type="submit">Save Changes</button>
+                            </div>
+                        {% endif %}
+                    </form>
+
+                    <form class="add-item-row" action="{{ url_for('admin_add_item', screen=screen, section_index=s) }}" method="post">
+                        <input type="text" name="new_name" placeholder="New item name" required>
+                        <input type="number" step="0.01" min="0" name="new_price" placeholder="Price" required>
+                        <button type="submit">Add Item</button>
+                    </form>
+
+                    <form class="admin-actions" action="{{ url_for('admin_delete_section', screen=screen, section_index=s) }}" method="post"
+                          onsubmit="return confirm('Delete the whole section &quot;{{ section.title }}&quot; and its items?');">
+                        <button type="submit" class="danger">Delete Section</button>
+                    </form>
+
+                </div>
+            {% endfor %}
+
+            <form class="add-item-row" action="{{ url_for('admin_add_section', screen=screen) }}" method="post">
+                <input type="text" name="new_section_title" placeholder="New section title (e.g. Desserts)" required>
+                <button type="submit">Add Section</button>
+            </form>
+        </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

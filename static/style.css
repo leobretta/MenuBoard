@@ -20,9 +20,10 @@ body.tv {
 
 .logo {
     display: block;
-    margin: 0 auto 0.75em auto;
+    margin: 0 auto 1.5vh auto;
     max-width: 100%;
-    max-height: 6em;
+    object-fit: contain;
+    /* height is set on the page itself (a percent of the screen, not of the text) */
 }
 
 .section {
@@ -264,4 +265,181 @@ body.admin {
 
 .flash.error {
     background: #b00020;
+}
+
+/* ---------- Setup page, logo, store name ---------- */
+
+.brand {
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: bold;
+    margin: 0 0 0.4em 0;
+}
+
+.logo-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 140px;
+    margin: 0 0 12px 0;
+    background: #eee;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.setup-box {
+    max-width: 520px;
+    margin: 30px auto;
+}
+
+.setup-box h1 {
+    font-size: 26px;
+}
+
+.setup-box h2 {
+    font-size: 18px;
+    margin: 24px 0 6px 0;
+    border-bottom: 2px solid #333;
+    padding-bottom: 4px;
+}
+
+.setup-intro, .hint {
+    font-size: 14px;
+    color: #555;
+}
+
+.setup-box .color-input {
+    width: 70px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* ---------- Logo size slider and TV preview ---------- */
+
+.logo-size-form {
+    margin-bottom: 18px;
+}
+
+.logo-size-form label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.logo-size-form input[type="range"] {
+    width: 100%;
+    margin: 4px 0 12px 0;
+}
+
+.screen-preview {
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 16 / 9;
+    box-sizing: border-box;
+    border: 3px solid #333;
+    border-radius: 6px;
+    padding-top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.screen-preview img {
+    max-width: 92%;
+    object-fit: contain;
+}
+
+.screen-preview .fake-lines {
+    width: 70%;
+    margin-top: 3%;
+    height: 38%;
+    background: repeating-linear-gradient(
+        to bottom, rgba(128,128,128,0.45) 0, rgba(128,128,128,0.45) 6px, transparent 6px, transparent 14px);
+}
+
+/* ---------- Reordering and sold-out ---------- */
+
+/* TV screens */
+.item.sold-out {
+    opacity: 0.45;
+}
+
+.item.sold-out > span:first-child {
+    text-decoration: line-through;
+}
+
+.item.sold-out .price {
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    align-self: center;
+}
+
+/* Admin page */
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-head .inline-form {
+    flex: 1;
+}
+
+.move-buttons {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+}
+
+.admin-wrap .move-buttons button {
+    padding: 4px 9px;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.admin-wrap .move-buttons button:disabled {
+    background: #ccc;
+    cursor: default;
+}
+
+.admin-row.is-sold-out input[type="text"],
+.admin-row.is-sold-out input[type="number"] {
+    background: #f3f3f3;
+    color: #888;
+}
+
+.admin-row label.soldout-label {
+    color: #8a5a00;
+    white-space: nowrap;
+}
+
+.admin-row label.delete-label {
+    white-space: nowrap;
+}
+
+/* Invisible, but still the form's "Enter key" button. */
+.admin-wrap .default-submit {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.radio-row {
+    display: block;
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+/* ---------- Columns on the TV screens ---------- */
+
+#columns {
+    column-gap: 3em;
+}
+
+#columns .section {
+    break-inside: avoid;
 }

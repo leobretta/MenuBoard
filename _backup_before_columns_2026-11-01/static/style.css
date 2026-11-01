@@ -1,0 +1,435 @@
+/* ---------- Base ---------- */
+
+body {
+    background-color: #FBDA04;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- TV screens (everything sized in em so it scales together) ---------- */
+
+body.tv {
+    overflow: hidden;
+}
+
+#board {
+    font-size: 24px; /* starting size; the page script adjusts this to fit */
+    padding: 1em 1.25em;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 1.5vh auto;
+    max-width: 100%;
+    object-fit: contain;
+    /* height is set on the page itself (a percent of the screen, not of the text) */
+}
+
+.section {
+    margin-bottom: 0.75em;
+}
+
+.section h2 {
+    font-size: 1.5em;
+    margin: 0 0 0.25em 0;
+    border-bottom: 0.08em solid black;
+    padding-bottom: 0.15em;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.15em;
+    padding: 0.2em 0;
+}
+
+.price {
+    font-weight: bold;
+}
+
+/* ---------- Admin page ---------- */
+
+body.admin {
+    padding: 40px;
+}
+
+.admin-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.admin-wrap h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.flash {
+    background: #4caf50;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.admin-section {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.admin-section h2 {
+    font-size: 24px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-top: 0;
+}
+
+.admin-section h3 {
+    font-size: 18px;
+    margin: 0 0 8px 0;
+}
+
+.menu-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 16px;
+    background: #fafafa;
+}
+
+.admin-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.admin-row input[type="text"] {
+    flex: 2;
+    padding: 6px;
+    font-size: 16px;
+}
+
+.admin-row input[type="number"] {
+    flex: 1;
+    padding: 6px;
+    font-size: 16px;
+}
+
+.admin-row label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #b00020;
+}
+
+.admin-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.admin-wrap button {
+    background: #222;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.admin-wrap button:hover {
+    background: #444;
+}
+
+.admin-wrap button.danger {
+    background: #b00020;
+}
+
+.admin-wrap button.danger:hover {
+    background: #d32f2f;
+}
+
+.add-item-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    border-top: 1px dashed #ccc;
+    padding-top: 14px;
+}
+
+.add-item-row input[type="text"] {
+    flex: 2;
+    padding: 6px;
+    font-size: 16px;
+}
+
+.add-item-row input[type="number"] {
+    flex: 1;
+    padding: 6px;
+    font-size: 16px;
+}
+
+.inline-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inline-form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.inline-form input[type="color"] {
+    width: 60px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid #999;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.color-hint {
+    font-size: 14px;
+    color: #555;
+}
+
+.tv-links {
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.tv-links a {
+    margin-right: 15px;
+}
+
+/* ---------- Admin login ---------- */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-box {
+    max-width: 360px;
+    margin: 80px auto;
+    background: white;
+    border-radius: 10px;
+    padding: 28px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+}
+
+.login-box h1 {
+    font-size: 28px;
+    margin: 0 0 16px 0;
+}
+
+.login-box label {
+    display: block;
+    margin: 12px 0 4px 0;
+    font-size: 14px;
+}
+
+.login-box input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.login-box button {
+    margin-top: 18px;
+    width: 100%;
+    background: #222;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-box button:hover {
+    background: #444;
+}
+
+.flash.error {
+    background: #b00020;
+}
+
+/* ---------- Setup page, logo, store name ---------- */
+
+.brand {
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: bold;
+    margin: 0 0 0.4em 0;
+}
+
+.logo-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 140px;
+    margin: 0 0 12px 0;
+    background: #eee;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.setup-box {
+    max-width: 520px;
+    margin: 30px auto;
+}
+
+.setup-box h1 {
+    font-size: 26px;
+}
+
+.setup-box h2 {
+    font-size: 18px;
+    margin: 24px 0 6px 0;
+    border-bottom: 2px solid #333;
+    padding-bottom: 4px;
+}
+
+.setup-intro, .hint {
+    font-size: 14px;
+    color: #555;
+}
+
+.setup-box .color-input {
+    width: 70px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* ---------- Logo size slider and TV preview ---------- */
+
+.logo-size-form {
+    margin-bottom: 18px;
+}
+
+.logo-size-form label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.logo-size-form input[type="range"] {
+    width: 100%;
+    margin: 4px 0 12px 0;
+}
+
+.screen-preview {
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 16 / 9;
+    box-sizing: border-box;
+    border: 3px solid #333;
+    border-radius: 6px;
+    padding-top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.screen-preview img {
+    max-width: 92%;
+    object-fit: contain;
+}
+
+.screen-preview .fake-lines {
+    width: 70%;
+    margin-top: 3%;
+    height: 38%;
+    background: repeating-linear-gradient(
+        to bottom, rgba(128,128,128,0.45) 0, rgba(128,128,128,0.45) 6px, transparent 6px, transparent 14px);
+}
+
+/* ---------- Reordering and sold-out ---------- */
+
+/* TV screens */
+.item.sold-out {
+    opacity: 0.45;
+}
+
+.item.sold-out > span:first-child {
+    text-decoration: line-through;
+}
+
+.item.sold-out .price {
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    align-self: center;
+}
+
+/* Admin page */
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-head .inline-form {
+    flex: 1;
+}
+
+.move-buttons {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+}
+
+.admin-wrap .move-buttons button {
+    padding: 4px 9px;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.admin-wrap .move-buttons button:disabled {
+    background: #ccc;
+    cursor: default;
+}
+
+.admin-row.is-sold-out input[type="text"],
+.admin-row.is-sold-out input[type="number"] {
+    background: #f3f3f3;
+    color: #888;
+}
+
+.admin-row label.soldout-label {
+    color: #8a5a00;
+    white-space: nowrap;
+}
+
+.admin-row label.delete-label {
+    white-space: nowrap;
+}
+
+/* Invisible, but still the form's "Enter key" button. */
+.admin-wrap .default-submit {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.radio-row {
+    display: block;
+    margin: 6px 0;
+    font-size: 15px;
+}

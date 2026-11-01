@@ -1,6 +1,6 @@
 {
-    "business_name": "The Yellow Submarine and Pinball Pete's",
-    "background_color": "#fbf304",
+    "business_name": "Yellow Submarine and Pinball Pete's",
+    "background_color": "#fff71a",
     "tv1": {
         "sections": [
             {
@@ -26,12 +26,7 @@
             },
             {
                 "title": "Desserts",
-                "items": [
-                    {
-                        "name": "yo",
-                        "price": 1.0
-                    }
-                ]
+                "items": []
             }
         ]
     },
@@ -55,5 +50,7 @@
                 ]
             }
         ]
-    }
+    },
+    "logo": "logo.png",
+    "logo_size": 30
 }

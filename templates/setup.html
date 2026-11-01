@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set Up Your Menu Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin">
+
+<div class="login-box setup-box">
+    <h1>Welcome! Let's set up your menu board</h1>
+    <p class="setup-intro">This only takes a minute. You can change everything later from the admin page.</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div class="flash error">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    {% for error in errors %}
+        <div class="flash error">{{ error }}</div>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('setup') }}" enctype="multipart/form-data">
+
+        <h2>Setup code</h2>
+        <p class="hint">Shown on your TV screen, and in the file <code>setup_code.txt</code> on the device running the menu. This makes sure only someone at your store can finish setup.</p>
+        <input type="text" name="setup_code" inputmode="numeric" autocomplete="off" placeholder="6-digit code" autofocus required>
+
+        <h2>Your store</h2>
+        <label for="store_name">Store name</label>
+        <input id="store_name" type="text" name="store_name" value="{{ form.store_name }}" required>
+
+        <label for="logo">Logo <span class="hint">(optional: PNG, JPG, GIF, or WebP, up to 5 MB)</span></label>
+        <input id="logo" type="file" name="logo" accept="image/png,image/jpeg,image/gif,image/webp">
+
+        <label for="background_color">Screen background color</label>
+        <input id="background_color" class="color-input" type="color" name="background_color" value="{{ form.background_color }}">
+
+        <h2>Admin login</h2>
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" value="{{ form.username }}" autocomplete="username" required>
+
+        <label for="password">Password <span class="hint">(at least 8 characters)</span></label>
+        <input id="password" type="password" name="password" autocomplete="new-password" required>
+
+        <label for="confirm_password">Confirm password</label>
+        <input id="confirm_password" type="password" name="confirm_password" autocomplete="new-password" required>
+
+        <button type="submit">Finish Setup</button>
+    </form>
+</div>
+
+</body>
+</html>
